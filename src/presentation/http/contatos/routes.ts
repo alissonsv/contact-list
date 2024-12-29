@@ -2,6 +2,7 @@ import { ResourceAlreadyExistsError } from "#/data/errors/resource-already-exist
 import { ResourceNotFoundError } from "#/data/errors/resource-not-found-error";
 import { ValidationError } from "#/data/errors/validation-error";
 import { CreateContatoUsecase } from "#/data/usecases/create-contato-usecase";
+import { DeleteContatoUsecase } from "#/data/usecases/delete-contato-usecase";
 import { GetContatosUsecase } from "#/data/usecases/get-contatos-usecase";
 import { UpdateContatoUsecase } from "#/data/usecases/update-contato-usecase";
 import { PrismaContactRepository } from "#/infra/repositories/prisma-contact-repository";
@@ -63,6 +64,24 @@ router.patch("/:id", async (req, res) => {
       err instanceof ValidationError
     ) {
       return res.status(400).json({ message: err.message });
+    }
+
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  const contatoRepository = new PrismaContactRepository();
+  const deleteContatoUseCase = new DeleteContatoUsecase(contatoRepository);
+
+  try {
+    await deleteContatoUseCase.execute(req.params.id);
+
+    return res.status(204).json({ message: "Contato deletado com sucesso" });
+  } catch (err) {
+    if (err instanceof ResourceNotFoundError) {
+      return res.status(404).json({ message: err.message });
     }
 
     console.error(err);
