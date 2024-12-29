@@ -58,6 +58,11 @@ export class PrismaContactRepository implements IContactRepository {
         if (err.code === "P2025") {
           throw new ResourceNotFoundError();
         }
+        // throws when unique constraint already exists
+        // https://www.prisma.io/docs/orm/reference/error-reference#p2002
+        if (err.code === "P2002") {
+          throw new ResourceAlreadyExistsError();
+        }
       }
 
       throw err;
