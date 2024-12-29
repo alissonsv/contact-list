@@ -33,6 +33,9 @@ export class PrismaContactRepository implements IContactRepository {
     const contacts = await prisma.contato.findMany({
       take: 20,
       skip: (page - 1) * 20,
+      orderBy: {
+        nome: "asc",
+      },
     });
 
     return contacts;
