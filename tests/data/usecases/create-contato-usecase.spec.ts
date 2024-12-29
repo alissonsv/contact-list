@@ -30,7 +30,7 @@ describe("CreateContato Usecase", () => {
     ).rejects.toThrow(ValidationError);
   });
 
-  test("Should throw ValidationError if telefone does not contains 9 digits", async () => {
+  test("Should throw ValidationError if telefone does not contains 10 digits", async () => {
     const { sut } = makeSut();
 
     await expect(
