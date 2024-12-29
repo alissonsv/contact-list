@@ -1,34 +1,6 @@
-import { Contato } from "@prisma/client";
-
 import { CreateContatoUsecase } from "#/data/usecases/create-contato-usecase";
-import { IContactRepository } from "#/domain/interfaces/contact-repository";
 import { ValidationError } from "#/data/errors/validation-error";
-
-function makeContatoRepositoryStub() {
-  class ContactRepositoryStub implements IContactRepository {
-    async getAll(_page: number): Promise<Contato[]> {
-      return [];
-    }
-
-    async update(data: Contato): Promise<Contato> {
-      return data;
-    }
-
-    async deleteById(_id: number): Promise<void> {
-      return;
-    }
-
-    async create({ nome, telefone }: Contato): Promise<Contato> {
-      return {
-        id: 1,
-        nome,
-        telefone,
-      };
-    }
-  }
-
-  return new ContactRepositoryStub();
-}
+import { makeContatoRepositoryStub } from "#/tests/mocks/contato-repository-stub";
 
 function makeSut() {
   const contatoRepositoryStub = makeContatoRepositoryStub();
