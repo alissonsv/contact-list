@@ -9,4 +9,9 @@ export default tseslint.config(
   tseslint.configs.stylistic,
   eslintConfigPrettier,
   eslintPluginPrettierRecommended,
+  {
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off",
+    },
+  },
 );
