@@ -15,9 +15,9 @@ router.post("/", async (req, res) => {
   const createContatoUseCase = new CreateContatoUsecase(contatoRepository);
 
   try {
-    await createContatoUseCase.execute(req.body);
+    const contato = await createContatoUseCase.execute(req.body);
 
-    return res.status(201).send();
+    return res.status(201).json(contato);
   } catch (err) {
     if (
       err instanceof ValidationError ||
