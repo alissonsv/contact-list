@@ -14,9 +14,9 @@ datasource db {
 }
 
 model Contato {
-  id           Int            @id @default(autoincrement())
-  nome         String
-  telefone     String         @unique
+  id            Int            @id @default(autoincrement())
+  nome          String
+  telefone      String         @unique
   contato_grupo ContatoGrupo[]
 
   @@index([nome(sort: Asc)])
@@ -24,8 +24,8 @@ model Contato {
 }
 
 model Grupo {
-  id           Int            @id @default(autoincrement())
-  nome         String         @unique
+  id            Int            @id @default(autoincrement())
+  nome          String         @unique
   contato_grupo ContatoGrupo[]
 
   @@map("grupos")
@@ -35,8 +35,8 @@ model ContatoGrupo {
   contato_id Int
   grupo_id   Int
 
-  contato Contato @relation(fields: [contato_id], references: [id])
-  grupo   Grupo   @relation(fields: [grupo_id], references: [id])
+  contato Contato @relation(fields: [contato_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  grupo   Grupo   @relation(fields: [grupo_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@id([contato_id, grupo_id])
   @@index([grupo_id])
