@@ -19,11 +19,12 @@ router.post("/", async (req, res) => {
 
     return res.status(201).json(contato);
   } catch (err) {
-    if (
-      err instanceof ValidationError ||
-      err instanceof ResourceAlreadyExistsError
-    ) {
+    if (err instanceof ValidationError) {
       return res.status(400).json({ message: err.message });
+    }
+
+    if (err instanceof ResourceAlreadyExistsError) {
+      return res.status(409).json({ message: err.message });
     }
 
     console.error(err);
