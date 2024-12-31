@@ -2,7 +2,7 @@ import request from "supertest";
 
 import { app } from "#/main/app";
 import { prisma } from "#/lib/prisma";
-import { GetContatosUsecase } from "#/data/usecases/get-contatos-usecase";
+import { GetContatosUsecase } from "#/data/usecases/contato/get-contatos-usecase";
 
 describe("Get Contatos route (e2e)", () => {
   test("Should return 200 with a list of contacts sorted by name", async () => {

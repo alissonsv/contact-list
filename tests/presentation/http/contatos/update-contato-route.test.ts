@@ -2,7 +2,7 @@ import request from "supertest";
 
 import { prisma } from "#/lib/prisma";
 import { app } from "#/main/app";
-import { UpdateContatoUsecase } from "#/data/usecases/update-contato-usecase";
+import { UpdateContatoUsecase } from "#/data/usecases/contato/update-contato-usecase";
 
 describe("Update Contato Route", () => {
   test("Should update a contact and return it with status 200", async () => {

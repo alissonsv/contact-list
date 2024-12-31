@@ -1,10 +1,10 @@
 import { ResourceAlreadyExistsError } from "#/data/errors/resource-already-exists-error";
 import { ResourceNotFoundError } from "#/data/errors/resource-not-found-error";
 import { ValidationError } from "#/data/errors/validation-error";
-import { CreateContatoUsecase } from "#/data/usecases/create-contato-usecase";
-import { DeleteContatoUsecase } from "#/data/usecases/delete-contato-usecase";
-import { GetContatosUsecase } from "#/data/usecases/get-contatos-usecase";
-import { UpdateContatoUsecase } from "#/data/usecases/update-contato-usecase";
+import { CreateContatoUsecase } from "#/data/usecases/contato/create-contato-usecase";
+import { DeleteContatoUsecase } from "#/data/usecases/contato/delete-contato-usecase";
+import { GetContatosUsecase } from "#/data/usecases/contato/get-contatos-usecase";
+import { UpdateContatoUsecase } from "#/data/usecases/contato/update-contato-usecase";
 import { PrismaContactRepository } from "#/infra/repositories/prisma-contact-repository";
 import express from "express";
 

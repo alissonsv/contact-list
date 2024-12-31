@@ -1,4 +1,4 @@
-import { CreateContatoUsecase } from "#/data/usecases/create-contato-usecase";
+import { CreateContatoUsecase } from "#/data/usecases/contato/create-contato-usecase";
 import { prisma } from "#/lib/prisma";
 import { app } from "#/main/app";
 import { faker } from "@faker-js/faker/.";

@@ -1,4 +1,4 @@
-import { CreateContatoUsecase } from "#/data/usecases/create-contato-usecase";
+import { CreateContatoUsecase } from "#/data/usecases/contato/create-contato-usecase";
 import { ValidationError } from "#/data/errors/validation-error";
 import { makeContatoRepositoryStub } from "#/tests/mocks/contato-repository-stub";
 

@@ -1,5 +1,5 @@
 import { makeContatoRepositoryStub } from "#/tests/mocks/contato-repository-stub";
-import { GetContatosUsecase } from "#/data/usecases/get-contatos-usecase";
+import { GetContatosUsecase } from "#/data/usecases/contato/get-contatos-usecase";
 
 function makeSut() {
   const contatoRepositoryStub = makeContatoRepositoryStub();

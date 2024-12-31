@@ -1,6 +1,7 @@
-import { IContactRepository } from "#/domain/interfaces/contact-repository";
 import { z } from "zod";
-import { ValidationError } from "../errors/validation-error";
+
+import { ValidationError } from "#/data/errors/validation-error";
+import { IContactRepository } from "#/domain/interfaces/contact-repository";
 
 interface CreateContatoUsecaseRequest {
   nome: string;

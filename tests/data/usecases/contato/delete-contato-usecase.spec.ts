@@ -1,5 +1,5 @@
 import { ValidationError } from "#/data/errors/validation-error";
-import { DeleteContatoUsecase } from "#/data/usecases/delete-contato-usecase";
+import { DeleteContatoUsecase } from "#/data/usecases/contato/delete-contato-usecase";
 import { makeContatoRepositoryStub } from "#/tests/mocks/contato-repository-stub";
 
 function makeSut() {

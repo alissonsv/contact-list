@@ -1,7 +1,7 @@
 import request from "supertest";
 import { prisma } from "#/lib/prisma";
 import { app } from "#/main/app";
-import { DeleteContatoUsecase } from "#/data/usecases/delete-contato-usecase";
+import { DeleteContatoUsecase } from "#/data/usecases/contato/delete-contato-usecase";
 
 describe("Delete Contato Route (e2e)", () => {
   test("Should delete a contact and return 204", async () => {

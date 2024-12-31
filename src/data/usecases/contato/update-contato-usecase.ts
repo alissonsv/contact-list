@@ -1,6 +1,7 @@
-import { Contato } from "@prisma/client";
 import { z } from "zod";
-import { ValidationError } from "../errors/validation-error";
+
+import { Contato } from "@prisma/client";
+import { ValidationError } from "#/data/errors/validation-error";
 import { IContactRepository } from "#/domain/interfaces/contact-repository";
 
 export class UpdateContatoUsecase {
