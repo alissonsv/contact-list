@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tsx src/main/server.ts",
     "pretest:e2e": "dotenv -e .env.test -- npx prisma migrate deploy",
-    "test": "jest",
+    "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "jest -c jest.unit.config.ts",
     "test:e2e": "dotenv -e .env.test -- jest -c jest.e2e.config.ts --runInBand --silent",
     "test:e2e:watch": "npm run test:e2e -- --watch"
