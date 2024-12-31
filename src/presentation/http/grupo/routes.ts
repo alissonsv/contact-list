@@ -7,6 +7,7 @@ import { ResourceAlreadyExistsError } from "#/data/errors/resource-already-exist
 import { ReadGrupoUsecase } from "#/data/usecases/grupo/read-grupo-usecase";
 import { ResourceNotFoundError } from "#/data/errors/resource-not-found-error";
 import { UpdateGrupoUsecase } from "#/data/usecases/grupo/update-grupo-usecase";
+import { DeleteGrupoUsecase } from "#/data/usecases/grupo/delete-grupo-usecase";
 
 const router = Router();
 
@@ -78,4 +79,23 @@ router.patch("/:id", async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 });
+
+router.delete("/:id", async (req, res) => {
+  const grupoRepository = new PrismaGroupRepository();
+  const deleteGrupoUseCase = new DeleteGrupoUsecase(grupoRepository);
+
+  try {
+    await deleteGrupoUseCase.execute(req.params.id);
+
+    return res.status(204).json({ message: "Grupo deletado com sucesso" });
+  } catch (err) {
+    if (err instanceof ResourceNotFoundError) {
+      return res.status(404).json({ message: err.message });
+    }
+
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 export default router;
