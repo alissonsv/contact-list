@@ -6,6 +6,7 @@ import { ValidationError } from "#/data/errors/validation-error";
 import { ResourceAlreadyExistsError } from "#/data/errors/resource-already-exists-error";
 import { ReadGrupoUsecase } from "#/data/usecases/grupo/read-grupo-usecase";
 import { ResourceNotFoundError } from "#/data/errors/resource-not-found-error";
+import { UpdateGrupoUsecase } from "#/data/usecases/grupo/update-grupo-usecase";
 
 const router = Router();
 
@@ -52,4 +53,29 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.patch("/:id", async (req, res) => {
+  const groupRepository = new PrismaGroupRepository();
+  const updateGrupoUsecase = new UpdateGrupoUsecase(groupRepository);
+
+  try {
+    const grupo = await updateGrupoUsecase.execute(req.params.id, req.body);
+
+    return res.status(200).json(grupo);
+  } catch (err) {
+    if (err instanceof ValidationError) {
+      return res.status(400).json({ message: err.message });
+    }
+
+    if (err instanceof ResourceNotFoundError) {
+      return res.status(404).json({ message: err.message });
+    }
+
+    if (err instanceof ResourceAlreadyExistsError) {
+      return res.status(409).json({ message: err.message });
+    }
+
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
 export default router;

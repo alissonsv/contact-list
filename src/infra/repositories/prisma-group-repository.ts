@@ -37,12 +37,14 @@ export class PrismaGroupRepository implements IGroupRepository {
 
   async update(data: Grupo): Promise<Grupo> {
     try {
-      return prisma.grupo.update({
+      const updatedGrupo = await prisma.grupo.update({
         where: {
           id: data.id,
         },
         data,
       });
+
+      return updatedGrupo;
     } catch (err) {
       if (err instanceof PrismaClientKnownRequestError) {
         // throw when id is not found
