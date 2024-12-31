@@ -59,12 +59,16 @@ router.patch("/:id", async (req, res) => {
 
     return res.status(200).json(updateContact);
   } catch (err) {
-    if (
-      err instanceof ResourceNotFoundError ||
-      err instanceof ResourceAlreadyExistsError ||
-      err instanceof ValidationError
-    ) {
+    if (err instanceof ValidationError) {
       return res.status(400).json({ message: err.message });
+    }
+
+    if (err instanceof ResourceNotFoundError) {
+      return res.status(404).json({ message: err.message });
+    }
+
+    if (err instanceof ResourceAlreadyExistsError) {
+      return res.status(409).json({ message: err.message });
     }
 
     console.error(err);
