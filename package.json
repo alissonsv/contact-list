@@ -7,7 +7,7 @@
     "pretest:e2e": "dotenv -e .env.test -- npx prisma migrate deploy",
     "test": "jest",
     "test:unit": "jest -c jest.unit.config.ts",
-    "test:e2e": "dotenv -e .env.test -- jest -c jest.e2e.config.ts --silent",
+    "test:e2e": "dotenv -e .env.test -- jest -c jest.e2e.config.ts --runInBand --silent",
     "test:e2e:watch": "npm run test:e2e -- --watch"
   },
   "keywords": [],
