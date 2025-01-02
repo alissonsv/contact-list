@@ -44,6 +44,16 @@ export class PrismaContactGroupRepository implements IContactGroupRepository {
     contactIds: number[],
     groupId: number,
   ): Promise<void> {
+    const existGroup = await prisma.grupo.findUnique({
+      where: {
+        id: groupId,
+      },
+    });
+
+    if (!existGroup) {
+      throw new ResourceNotFoundError();
+    }
+
     await prisma.contatoGrupo.deleteMany({
       where: {
         contato_id: {

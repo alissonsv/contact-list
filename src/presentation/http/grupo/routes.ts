@@ -10,6 +10,7 @@ import { UpdateGrupoUsecase } from "#/data/usecases/grupo/update-grupo-usecase";
 import { DeleteGrupoUsecase } from "#/data/usecases/grupo/delete-grupo-usecase";
 import { PrismaContactGroupRepository } from "#/infra/repositories/prisma-contact-group-repository";
 import { InsertContatosIntoGrupoUsecase } from "#/data/usecases/contato-grupo/insert-contatos-into-grupo-usecase";
+import { DeleteContatosFromGrupoUsecase } from "#/data/usecases/contato-grupo/delete-contatos-from-grupo-usecase";
 
 const router = Router();
 
@@ -118,6 +119,33 @@ router.delete("/:id", async (req, res) => {
 
     return res.status(204).json({ message: "Grupo deletado com sucesso" });
   } catch (err) {
+    if (err instanceof ResourceNotFoundError) {
+      return res.status(404).json({ message: err.message });
+    }
+
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+router.delete("/:id/contatos", async (req, res) => {
+  const contactGroupRepository = new PrismaContactGroupRepository();
+  const deleteContactsFromGroupUsecase = new DeleteContatosFromGrupoUsecase(
+    contactGroupRepository,
+  );
+
+  try {
+    await deleteContactsFromGroupUsecase.execute({
+      contatoIds: req.body.contatoIds,
+      grupoId: req.params.id,
+    });
+
+    return res.status(204).send();
+  } catch (err) {
+    if (err instanceof ValidationError) {
+      return res.status(400).json({ message: err.message });
+    }
+
     if (err instanceof ResourceNotFoundError) {
       return res.status(404).json({ message: err.message });
     }
