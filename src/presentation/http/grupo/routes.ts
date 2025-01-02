@@ -11,6 +11,7 @@ import { DeleteGrupoUsecase } from "#/data/usecases/grupo/delete-grupo-usecase";
 import { PrismaContactGroupRepository } from "#/infra/repositories/prisma-contact-group-repository";
 import { InsertContatosIntoGrupoUsecase } from "#/data/usecases/contato-grupo/insert-contatos-into-grupo-usecase";
 import { DeleteContatosFromGrupoUsecase } from "#/data/usecases/contato-grupo/delete-contatos-from-grupo-usecase";
+import { ListContatosFromGrupoUsecase } from "#/data/usecases/contato-grupo/list-contatos-from-grupo-usecase";
 
 const router = Router();
 
@@ -70,6 +71,35 @@ router.get("/:id", async (req, res) => {
     const grupo = await readGrupoUsecase.execute(Number(req.params.id));
 
     return res.status(200).json(grupo);
+  } catch (err) {
+    if (err instanceof ValidationError) {
+      return res.status(400).json({ message: err.message });
+    }
+
+    if (err instanceof ResourceNotFoundError) {
+      return res.status(404).json({ message: err.message });
+    }
+
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+router.get("/:id/contatos", async (req, res) => {
+  const contactGroupRepository = new PrismaContactGroupRepository();
+  const listContatosFromGrupoUsecase = new ListContatosFromGrupoUsecase(
+    contactGroupRepository,
+  );
+
+  const page = Number(req.query.page) || 1;
+
+  try {
+    const contacts = await listContatosFromGrupoUsecase.execute(
+      req.params.id,
+      page,
+    );
+
+    return res.status(200).send(contacts);
   } catch (err) {
     if (err instanceof ValidationError) {
       return res.status(400).json({ message: err.message });

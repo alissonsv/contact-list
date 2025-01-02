@@ -65,6 +65,16 @@ export class PrismaContactGroupRepository implements IContactGroupRepository {
   }
 
   async listGroupContacts(groupId: number, page: number): Promise<Contato[]> {
+    const existGroup = await prisma.grupo.findUnique({
+      where: {
+        id: groupId,
+      },
+    });
+
+    if (!existGroup) {
+      throw new ResourceNotFoundError();
+    }
+
     const contacts = await prisma.contato.findMany({
       where: {
         contato_grupo: {
