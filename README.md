@@ -6,6 +6,7 @@
 ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 
+[![Run Unit Tests](https://github.com/alissonsv/contact-list/actions/workflows/run-unit-tests.yml/badge.svg)](https://github.com/alissonsv/contact-list/actions/workflows/run-unit-tests.yml)
 [![Run E2E Tests](https://github.com/alissonsv/contact-list/actions/workflows/run-e2e-tests.yml/badge.svg)](https://github.com/alissonsv/contact-list/actions/workflows/run-e2e-tests.yml)
 
 ## Como Rodar local
