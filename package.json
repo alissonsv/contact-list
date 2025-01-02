@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "tsup src --out-dir dist/",
+    "predev": "npx prisma migrate dev",
     "dev": "tsx src/main/server.ts",
     "pretest:e2e": "dotenv -e .env.test -- npx prisma migrate deploy",
+    "start": "node dist/main/server.js",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "jest -c jest.unit.config.ts",
     "test:unit:watch": "npm run test:unit -- --watch",
@@ -32,6 +35,7 @@
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
+    "tsup": "^8.3.5",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.2"

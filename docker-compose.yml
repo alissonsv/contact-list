@@ -1,10 +1,26 @@
 services:
+  app:
+    build: .
+    ports:
+      - "3333:3333"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=mysql://root:testando123@mysql:3306/test
+      - NODE_ENV=production
+    command: sh -c "npx prisma migrate deploy && npm run start"
+
   mysql:
     image: mysql:8.0
     ports:
-      - "3306:3306"
+      - "3306"
     environment:
       MYSQL_ROOT_PASSWORD: testando123
       MYSQL_DATABASE: test
       MYSQL_USER: test
       MYSQL_PASSWORD: testando123
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      timeout: 20s
+      retries: 10
