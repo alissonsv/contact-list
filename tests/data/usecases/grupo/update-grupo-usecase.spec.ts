@@ -19,12 +19,20 @@ describe("UpdateGrupo Usecase", () => {
     });
   });
 
-  test("Should throw ValidationError if data is invalid", async () => {
+  test("Should throw ValidationError if group id is invalid", async () => {
     const { sut } = makeSut();
 
     await expect(() =>
       sut.execute("asdf", { nome: "Grupo 1" }),
     ).rejects.toThrow(ValidationError);
+  });
+
+  test("Should throw ValidationError if group name is invalid", async () => {
+    const { sut } = makeSut();
+
+    await expect(() => sut.execute(1, { nome: "" })).rejects.toThrow(
+      ValidationError,
+    );
   });
 
   test("Should throw error if any error occours while reading group", async () => {
